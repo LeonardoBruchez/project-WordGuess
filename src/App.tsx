@@ -10,13 +10,23 @@ import { Button } from "./components/Button";
 import { LettersUsed } from "./components/LettersUsed";
 import { type LettersUsedProps } from "./components/LettersUsed";
 
+const ATTEMPTS_MARGIN = 5;
+// isso define a quantidade de tentativas a mais que a quantidade de letras
+
 export default function App() {
+  const [score, setScore] = useState(0);
   const [letter, setLetter] = useState("");
-  const [attempts, setAttempts] = useState(0);
   const [lettersUsed, setLettersUsed] = useState<LettersUsedProps[]>([]);
   const [challenge, setChallenge] = useState<Challenge | null>(null);
+
   function handleRestartGame() {
-    alert("Reiniciar o jogo!");
+    const isConfirmed = window.confirm(
+      "Você tem certeza que deseja reiniciar?",
+    );
+
+    if (isConfirmed) {
+      startGame();
+    }
   }
 
   function startGame() {
@@ -24,8 +34,9 @@ export default function App() {
     const randomWord = WORDS[index];
     setChallenge(randomWord);
 
-    setAttempts(0);
+    setScore(0);
     setLetter("");
+    setLettersUsed([]);
   }
   function handleConfirm() {
     if (!challenge) {
@@ -42,16 +53,50 @@ export default function App() {
     );
 
     if (exists) {
+      setLetter("");
       return alert("Você já utilizou a letra " + value);
     }
-    setLettersUsed((prevState) => [...prevState, { value, correct: false }]);
+
+    const hits = challenge.word
+      .toUpperCase()
+      .split("")
+      .filter((char) => char === value).length;
+
+    const correct = hits > 0;
+    const currentScore = score + hits;
+
+    setLettersUsed((prevState) => [...prevState, { value, correct }]);
+    setScore(currentScore);
 
     setLetter("");
+  }
+
+  function endGame(message: string) {
+    alert(message);
+    startGame();
   }
 
   useEffect(() => {
     startGame();
   }, []);
+
+  useEffect(() => {
+    if (!challenge) {
+      return;
+    }
+
+    setTimeout(() => {
+      if (score === challenge.word.length) {
+        return endGame("Parabéns, você descobriu a palavra!");
+      }
+
+      const attemptLimit = challenge.word.length + ATTEMPTS_MARGIN;
+      if (lettersUsed.length === attemptLimit) {
+        return endGame("Que pena, você usou todas as tentativas!");
+      }
+    }, 200);
+  }, [score, lettersUsed.length]);
+
   if (!challenge) {
     return;
   }
@@ -59,14 +104,28 @@ export default function App() {
   return (
     <div className={styles.container}>
       <main>
-        <Header current={attempts} max={10} onRestart={handleRestartGame} />
+        <Header
+          current={lettersUsed.length}
+          max={challenge.word.length + ATTEMPTS_MARGIN}
+          onRestart={handleRestartGame}
+        />
 
-        <Tip tip="Uma das linguagem de programação dinâmica " />
+        <Tip tip={challenge.tip} />
 
         <div className={styles.word}>
-          {challenge.word.split("").map(() => (
-            <Letter value="" />
-          ))}
+          {challenge.word.split("").map((letter, index) => {
+            const letterUsed = lettersUsed.find(
+              (used) => used.value.toUpperCase() === letter.toUpperCase(),
+            );
+            console.log(letterUsed);
+            return (
+              <Letter
+                key={index}
+                value={letterUsed?.value}
+                color={letterUsed?.correct ? "correct" : "default"}
+              />
+            );
+          })}
         </div>
 
         <h4>Palpite</h4>
