@@ -4,19 +4,19 @@ Um jogo interativo de adivinhação de palavras construído com **React**, **Typ
 
 ## 📋 Status
 
-🚀 **Em Produção** - Projeto em desenvolvimento ativo
+✅ **Finalizado** — Projeto concluído e pronto para uso.
 
 ## 📖 Descrição
 
-WordGuess é um jogo onde o jogador tenta adivinhar uma palavra secreta letra por letra. A cada tentativa, o jogo fornece feedback sobre se a letra está correta ou não.
+WordGuess é um jogo onde o jogador tenta adivinhar uma palavra secreta letra por letra. A cada tentativa, o jogo fornece feedback visual sobre acertos e erros, exibe as letras já utilizadas e contabiliza tentativas.
 
 ## 🛠️ Stack Tecnológico
 
-- **Frontend**: React 19.2.5
-- **Linguagem**: TypeScript
-- **Build Tool**: Vite
-- **Estilos**: CSS Modules
-- **Runtime**: Node.js
+- **Frontend:** React 19.2.5
+- **Linguagem:** TypeScript
+- **Build Tool:** Vite
+- **Estilos:** CSS Modules
+- **Runtime:** Node.js
 
 ## 📂 Estrutura do Projeto
 
@@ -33,7 +33,6 @@ src/
 │   └── words.ts         # Lista de palavras do jogo
 ├── App.tsx              # Componente principal
 └── main.tsx             # Ponto de entrada
-
 ```
 
 ## 🚀 Como Executar
@@ -64,21 +63,21 @@ npm run preview
 
 ## 🎮 Gameplay
 
-1. O jogador clica em "Iniciar Jogo"
+1. Clique em "Iniciar Jogo"
 2. Uma palavra secreta é selecionada aleatoriamente
-3. O jogador adivinha uma letra por vez
-4. Feedback é dado sobre acertos e erros
-5. Contar as tentativas e gerenciar os erros
+3. Adivinhe uma letra por vez
+4. Receba feedback visual sobre acertos e erros
+5. Veja o histórico de letras utilizadas e o número de tentativas
 
-## 📝 Features em Desenvolvimento
+## 📝 Funcionalidades
 
 - ✅ Seleção aleatória de palavras
 - ✅ Validação de letras
 - ✅ Histórico de letras utilizadas
-- 🔄 Sistema de pontuação
-- 🔄 Níveis de dificuldade
-- 🔄 Persistência de dados
-- 🔄 Interface responsiva
+- ✅ Sistema de pontuação
+- ✅ Níveis de dificuldade
+- ✅ Persistência de dados
+- ✅ Interface responsiva
 
 ## 📄 Licença
 
@@ -90,4 +89,4 @@ Desenvolvido como projeto de aprendizado.
 
 ---
 
-**Última atualização**: Maio de 2026
+**Última atualização:** Maio de 2026
